@@ -2,11 +2,12 @@ sudo: required
 language: cpp
 services:
 - docker
-before_install: 
+before_install:
+  - docker build -t lukasheinrich/quickana-tutorial .
 script:
 - echo 'hello quickana'
-- mkdir results
-- echo "a result" >> results/cutflow.txt
+- docker run -it lukasheinrich/quickana-tutorial ./tests/travistest.sh
+- docker cp $(docker ps -lq):/analysis/submitDir results
 after_success: bash deploy.sh
 env:
   global:
