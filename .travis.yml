@@ -10,4 +10,8 @@ before_install:
 
 script:
   - echo 'hello quickana'
-  - docker run -it lukasheinrich/quickana-tutorial ./tests/travistest.sh
+  - mkdir results
+  - echo "a result" >> results/cutflow.txt
+  # - docker run -it lukasheinrich/quickana-tutorial ./tests/travistest.sh
+  
+after_success: bash deploy.sh
