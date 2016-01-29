@@ -6,7 +6,8 @@ services:
   - docker
 
 before_install:
-  - docker build .
+  - docker build -t lukasheinrich/quickana-tutorial .
 
 script:
   - echo 'hello quickana'
+  - docker run -it lukasheinrich/quickana-tutorial bash -c 'mkdir /input && cd /input && curl -O http://physics.nyu.edu/~lh1132/myAOD.pool.root && cd /analysis && source rcSetup.sh && root -l -b -q $ROOTCOREDIR/scripts/load_packages.C $ROOTCOREBIN/user_scripts/MyAnalysis/submit.C'"'"'("submitDir")'"'"'' 
