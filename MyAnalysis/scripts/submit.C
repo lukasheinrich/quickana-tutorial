@@ -28,7 +28,15 @@ void submit (std::string submitDir)
 
   // add our algorithm to the job
   MyAlgorithm *alg = new MyAlgorithm;
-
+  // alg->electronDef = "default";
+  alg->muonDef = "default";
+  // alg->tauDef = "default";
+  // alg->photonDef = "default";
+  // alg->jetDef = "default";
+  // alg->metDef = "default";
+  // alg->orDef = "default";
+  
+  
   // later on we'll add some configuration options for our algorithm that go here
 
   job.algsAdd (alg);

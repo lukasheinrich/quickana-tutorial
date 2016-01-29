@@ -3,7 +3,10 @@
 #include <EventLoop/Worker.h>
 #include <MyAnalysis/MyAlgorithm.h>
 
+#include <xAODMissingET/MissingETContainer.h>
+
 #include <TH1.h>
+
 
 // this is needed to distribute the algorithm to the workers
 ClassImp(MyAlgorithm)
@@ -31,6 +34,9 @@ EL::StatusCode MyAlgorithm :: setupJob (EL::Job& job)
   // sole advantage of putting it here is that it gets automatically
   // activated/deactivated when you add/remove the algorithm from your
   // job, which may or may not be of value to you.
+
+  job.useXAOD();
+
   return EL::StatusCode::SUCCESS;
 }
 
@@ -77,8 +83,15 @@ EL::StatusCode MyAlgorithm :: initialize ()
   // you create here won't be available in the output if you have no
   // input events.
 
-  book (TH1D ("met", "MET spectrum", 100, 0, 1000e3));
+  book (TH1D ("nmuons", "number of muons", 20, 0, 20));
 
+  std::unique_ptr<ana::QuickAna> myQuickAna (new ana::QuickAna ("quickana"));
+  myQuickAna->setConfig (*this);
+  quickAna = std::move (myQuickAna);
+  if (quickAna->initialize().isFailure()){
+    return EL::StatusCode::FAILURE;
+  }
+  
   return EL::StatusCode::SUCCESS;
 }
 
@@ -91,8 +104,14 @@ EL::StatusCode MyAlgorithm :: execute ()
   // histograms and trees.  This is where most of your actual analysis
   // code will go.
 
+
+  // run QuickAna for the current event:
+  if(quickAna->process().isFailure())
+    return EL::StatusCode::FAILURE;
+
+
   // fill the MET histogram with a dummy value of 42 GeV
-  hist("met")->Fill (42e3);
+  hist("nmuons")->Fill (quickAna->muons()->size(), quickAna->weight());
 
   return EL::StatusCode::SUCCESS;
 }

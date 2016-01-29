@@ -3,7 +3,12 @@
 
 #include <EventLoop/Algorithm.h>
 
-class MyAlgorithm : public EL::Algorithm
+#include <QuickAna/Configuration.h>
+#include <QuickAna/QuickAna.h>
+#include <memory>
+
+class MyAlgorithm : public EL::Algorithm, public ana::Configuration
+
 {
   // put your configuration variables here as public variables.
   // that way they can be set directly from CINT and python.
@@ -35,6 +40,13 @@ public:
   virtual EL::StatusCode finalize ();
   virtual EL::StatusCode histFinalize ();
 
+private:
+  // the quickAna tool.
+  // the unique_ptr is used to ensure the tool gets destroyed and recreated
+  // when running over multiple samples
+  // the //! is important to indicate that the tool is not going to be streamed
+  std::unique_ptr<ana::IQuickAna> quickAna; //!
+  
   // this is needed to distribute the algorithm to the workers
   ClassDef(MyAlgorithm, 1);
 };

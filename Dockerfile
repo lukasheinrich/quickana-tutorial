@@ -1,6 +1,6 @@
 FROM lukasheinrich/atlas-analysisbase-2.4.3
 RUN mkdir /analysis
-ADD MyAnalysis /analysis/MyAnalysis
+COPY . /analysis
 WORKDIR /analysis
 RUN bash -c '\
     source /atlas-asg/get_rcsetup.sh &&\
