@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 BRANCH=gh-pages
-TARGET_REPO=lukasheinrich/lukasheinrich/quickana-tutorial.git
+TARGET_REPO=lukasheinrich/quickana-tutorial.git
 
 echo -e "Testing travis-encrypt"
 echo -e "$VARNAME"
@@ -14,7 +14,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
         git config --global user.name "Travis"
     fi
     #using token clone gh-pages branch
-    git clone --quiet --branch=$BRANCH https://github.com/$TARGET_REPO results_website > /dev/null
+    git clone --quiet --branch=$BRANCH https://${GH_TOKEN}@github.com/$TARGET_REPO results_website > /dev/null
     #go into directory and copy data we're interested in to that directory
     cd results_website
     rsync -rv --exclude=.git  ../results/* .
