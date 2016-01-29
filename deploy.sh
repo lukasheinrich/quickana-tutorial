@@ -2,7 +2,7 @@
 #!/usr/bin/env bash
 
 BRANCH=gh-pages
-TARGET_REPO=lukasheinrich/quickana-tutorial.git
+TARGET_REPO=lukasheinrich/quickana-tutorial-results.git
 
 echo -e "Testing travis-encrypt"
 echo -e "$VARNAME"
