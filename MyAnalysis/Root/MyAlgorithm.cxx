@@ -84,6 +84,7 @@ EL::StatusCode MyAlgorithm :: initialize ()
   // input events.
 
   book (TH1D ("nmuons", "number of muons", 20, 0, 20));
+  //book (TH1D ("nelectrons", "number of electrons", 20, 0, 20));
 
   std::unique_ptr<ana::QuickAna> myQuickAna (new ana::QuickAna ("quickana"));
   myQuickAna->setConfig (*this);
@@ -112,6 +113,7 @@ EL::StatusCode MyAlgorithm :: execute ()
 
   // fill the MET histogram with a dummy value of 42 GeV
   hist("nmuons")->Fill (quickAna->muons()->size(), quickAna->weight());
+  //hist("nelectrons")->Fill (quickAna->electrons()->size(), quickAna->weight());
 
   return EL::StatusCode::SUCCESS;
 }
