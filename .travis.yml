@@ -15,8 +15,7 @@ after_success:
 - bash deploy.sh
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker push lukasheinrich/quickana-tutorial
-- ipython nbconvert --inplace --execute QuickAna\ notebook.ipynb
-- cp QuickAna\ notebook.ipynb results
+- ipython nbconvert --inplace --execute results/QuickAna\ notebook.ipynb
 
 env:
   global:
