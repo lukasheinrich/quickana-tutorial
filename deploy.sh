@@ -16,9 +16,11 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     #using token clone gh-pages branch
     git clone --quiet --branch=$BRANCH https://${GH_TOKEN}@github.com/$TARGET_REPO results_website &> /dev/null
     #go into directory and copy data we're interested in to that directory
+
     cd results_website
     rsync -rv --exclude=.git  ../results/* results
     rsync -rv --exclude=.git  ../*.ipynb results
+    ipython nbconvert --inplace --execute results/QuickAna\ notebook.ipynb
 
     #add, commit and push files
     git add -f .
