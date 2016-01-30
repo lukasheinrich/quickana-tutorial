@@ -24,7 +24,7 @@ void submit (std::string submitDir)
   // this is the basic description of our job
   EL::Job job;
   job.sampleHandler (sh); // use SampleHandler in this job
-  job.options()->setDouble (EL::Job::optMaxEvents, 300); // for testing purposes, limit to run over the first 500 events only!
+  job.options()->setDouble (EL::Job::optMaxEvents, 400); // for testing purposes, limit to run over the first 500 events only!
 
   // add our algorithm to the job
   MyAlgorithm *alg = new MyAlgorithm;
