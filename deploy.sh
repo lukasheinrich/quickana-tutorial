@@ -20,7 +20,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     cd results_website
     rsync -rv --exclude=.git  ../results/* results
     rsync -rv --exclude=.git  ../*.ipynb results
-    ipython nbconvert --inplace --execute results/QuickAna\ notebook.ipynb
+    ipython nbconvert --inplace --execute results/QuickAna\ notebook.ipynb --output results/QuickAna\ notebook.ipynb 
 
     #add, commit and push files
     git add -f .
