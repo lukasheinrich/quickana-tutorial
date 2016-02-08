@@ -34,7 +34,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     #add, commit and push files
     git add -f .
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to Overeleaf"
-    git push -fq origin master &> /dev/null
-
+    git push -fq origin master
+    
     echo -e "Deploy completed\n"
 fi
