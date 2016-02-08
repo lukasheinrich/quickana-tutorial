@@ -26,5 +26,15 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     git add -f .
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to Github Pages"
     git push -fq origin $BRANCH &> /dev/null
+    
+    cd ..
+    git clone --quiet https://git.overleaf.com/4245957przxfv paper_repo
+    cd paper_repo
+    rsync -rv --exclude=.git  ../results/* results
+    #add, commit and push files
+    git add -f .
+    git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to Overeleaf"
+    git push -fq origin master &> /dev/null
+
     echo -e "Deploy completed\n"
 fi
